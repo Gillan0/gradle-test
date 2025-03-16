@@ -6,6 +6,7 @@ import org.hanjiecreator.logic.HanjieSolver;
 import org.hanjiecreator.model.HanjieGrid;
 import org.hanjiecreator.util.ImageConverter;
 import org.hanjiecreator.util.ImageGenerator;
+import org.hanjiecreator.gui.HanjieGridUI;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -29,13 +30,15 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	private int GRID_SIZE = 35;
+	
 	private HanjieGrid hanjieGrid;
 	private HanjieGridUI grid;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			hanjieGrid = new HanjieGrid(35);
+			hanjieGrid = new HanjieGrid(GRID_SIZE);
 			grid = new HanjieGridUI(hanjieGrid);
 			
 			ScrollPane root = new ScrollPane();
@@ -61,7 +64,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Hanjie creator");
 			
-			Image icon = new  Image("/icons/logoCDV.png");
+			Image icon = new Image(getClass().getResourceAsStream("/icons/logoCDV.png"));
 			primaryStage.getIcons().add(icon);
 			
 			primaryStage.setWidth(720);
@@ -132,7 +135,8 @@ public class Main extends Application {
 
 	    Button refreshGrid = new Button("Clear grid");
 	    refreshGrid.setOnAction(event -> {
-	    	grid = new HanjieGridUI(new HanjieGrid(35));
+	    	hanjieGrid = new HanjieGrid(GRID_SIZE);
+	    	grid = new HanjieGridUI(hanjieGrid);
 	    	rootPane.setRight(grid.getPane());
 	    });
 	    
